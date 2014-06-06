@@ -33,4 +33,18 @@ class CategorieProduitRepository extends EntityRepository
 
         return new Paginator($q);
     }
+    public function getListAjax($maxperpage=10,$libelle)
+    {
+        $page=1;
+        $q = $this->_em->createQueryBuilder()
+            ->select('CategorieProduit')
+            ->from('ProjetAdminBundle:CategorieProduit','CategorieProduit')
+            ->add("where","CategorieProduit.libelle like '%".$libelle."%'")
+        ;
+
+        $q->setFirstResult(($page-1) * $maxperpage)
+            ->setMaxResults($maxperpage);
+
+        return new Paginator($q);
+    }
 }
