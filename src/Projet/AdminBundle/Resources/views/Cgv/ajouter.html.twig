@@ -1,0 +1,52 @@
+{% extends 'ProjetAdminBundle:Layout:sb-admin.html.twig' %}
+{% block signin %}{% endblock %}
+{% block calendar %}{% endblock %}
+{% block body %}
+	{{ parent() }}
+		<div class="container-fluid col-sm-11 col-sm-offset-1">
+	      <div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h2>Ajout nouvelle condition</h2>
+				{% for flashMessage in app.session.flashbag.get('erreur') %}
+				    <div class="alert bg-warning">
+				      <button type="button" class="close" data-dismiss="alert">&times;</button>
+				      <strong>{{ flashMessage }}</strong>
+				    </div>
+				{% endfor %}
+			
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<form action="{{ path('Ajouter_cgv') }}" method="post"{{ form_enctype(form) }} class="form">
+				<div class="form-group">
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.titre, "Entrez le titre: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.titre,{'attr':{'class':'col-lg-4'}}) }}</div>
+						<p class="help-block col-sm-10">Entrez le titre.</p>
+					</div>
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.contenu, "Entrez le contenu: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.contenu,{'attr':{'class':'col-lg-9','rows':'10'}}) }}</div>
+						<p class="help-block col-sm-10">Entrez le contenu.</p>
+					</div>
+					{{ form_errors(form) }}
+					{{ form_rest(form) }}
+					<div class="form-group">
+					    <div class="col-sm-offset-2 col-sm-10">
+					      <input type="submit" class="btn btn-primary" />
+					    </div>
+					  </div>
+					
+					<script>
+					  $('#projet_adminbundle_cgv_contenu').wysihtml5();
+					</script>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}
+{% block stats %}{% endblock %}

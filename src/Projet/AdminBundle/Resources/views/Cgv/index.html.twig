@@ -1,0 +1,72 @@
+{% extends 'ProjetAdminBundle:Layout:sb-admin.html.twig' %}
+{% block signin %}{% endblock %}
+{% block calendar %}{% endblock %}
+{% block body %}
+	{{ parent() }}
+		<div class="container-fluid col-sm-11 col-sm-offset-1">
+	      <div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h2>Liste des conditions,<small> Nombre egal a: {{ liste|length }}</small></h2>
+				<a href="{{ path('Ajouter_cgv') }}" class="btn btn-info">Ajouter nouvelle condition</a>
+				
+				{% for flashMessage in app.session.flashbag.get('erreur') %}
+				    <div class="alert bg-warning">
+				      <button type="button" class="close" data-dismiss="alert">&times;</button>
+				      <strong>{{ flashMessage }}</strong>
+				    </div>
+				{% endfor %}
+				
+				{% for DbalflashMessage in app.session.flashbag.get('dbal-erreur') %}
+				    <div class="alert bg-warning">
+				      <button type="button" class="close" data-dismiss="alert">&times;</button>
+				      {{ DbalflashMessage|raw }}
+				    </div>
+				{% endfor %}
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+					<br/>
+				Filtrer par titre: <input type='text' id='search-cgv'>
+				<br />
+				<br />
+				<div id="contenu-cgv">
+					<table class="table table-bordered table-hover table-striped sortable" id="liste_cgv">
+						<thead>
+							<tr>
+								<td><strong>#</strong></td>
+								<td><strong>titre</strong></td>
+								<td><strong>contenu</strong></td>
+							</tr>
+						</thead>
+						<tbody>
+							{% for cgv in liste %}
+								<tr>
+									<td>{{ cgv.id }}</td>
+									<td>{{ cgv.titre }}</td>
+									<td>
+										<div class="row">
+											<div class="col-md-8">
+												{{ cgv.contenu|raw }}
+											</div>
+											<div class="col-md-2">
+												<a href="{{ path('Maj_cgv', {'id' : cgv.id}) }}">Modifier</a>
+											</div>
+											<div class="col-md-2">
+												<a href="{{ path('Spr_cgv', {'id' : cgv.id}) }}">Supprimer</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					
+				</div>				
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}
+{% block stats %}{% endblock %}

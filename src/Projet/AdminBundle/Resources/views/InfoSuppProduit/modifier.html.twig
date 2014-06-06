@@ -1,0 +1,54 @@
+{% extends 'ProjetAdminBundle:Layout:sb-admin.html.twig' %}
+{% block signin %}{% endblock %}
+{% block calendar %}{% endblock %}
+{% block body %}
+	{{ parent() }}
+	<div class="container-fluid col-sm-11 col-sm-offset-1">
+	      <div class="row">
+	        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h2>Mettre a jour des infos supp :<strong></strong></h2>
+				{% for flashMessage in app.session.flashbag.get('erreur') %}
+				    <div class="alert bg-warning">
+				      <button type="button" class="close" data-dismiss="alert">&times;</button>
+				      <strong>{{ flashMessage }}</strong>
+				    </div>
+				{% endfor %}
+			
+			</div>
+		</div>
+	
+	<div class="row">
+	        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<form action="{{ path('Maj_infosupp',{'id':info.id,'id_prod':info.produit.id}) }}" method="post"{{ form_enctype(form) }} class="form">
+				<div class="form-group">
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.couleur, "Entrez la couleur: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.couleur,{'attr':{'class':'col-lg-4'}}) }}</div>
+						<p class="help-block col-sm-10">Mettez a jour la couleur.</p>
+					</div>
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.taille, "Entrez la taille: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.taille,{'attr':{'class':'col-lg-4'}}) }}</div>
+						<p class="help-block col-sm-10">Mettez a jour la taille.</p>
+					</div>
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.quantite, "Entrez la quantite: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.quantite,{'attr':{'class':'col-lg-4'}}) }}</div>
+						<p class="help-block col-sm-10">Mettez a jour la quantite.</p>
+					</div>
+					{{ form_errors(form) }}
+					{{ form_rest(form) }}
+					<div class="form-group">
+					    <div class="col-sm-offset-2 col-sm-10">
+					      <input type="submit" class="btn btn-primary" value="Mettre a jour" />
+					    </div>
+					  </div>
+					
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}
+{% block stats %}{% endblock %}

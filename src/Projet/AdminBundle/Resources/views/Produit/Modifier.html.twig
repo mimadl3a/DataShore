@@ -1,0 +1,125 @@
+{% extends 'ProjetAdminBundle:Layout:sb-admin.html.twig' %}
+{% block signin %}{% endblock %}
+{% block calendar %}{% endblock %}
+{% block body %}
+	{{ parent() }}
+		<div class="container-fluid col-sm-11 col-sm-offset-1">
+	      <div class="row">
+	        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+					<h2>Modifier produit</h2>
+					{% for flashMessage in app.session.flashbag.get('erreur') %}
+					    <div class="alert bg-warning" id="alert-div">
+					      <button type="button" class="close" data-dismiss="alert">&times;</button>
+					      <strong>{{ flashMessage }}</strong>
+					    </div>
+					{% endfor %}
+		
+			        {% if not form.vars.valid %}
+					<div class="alert alert-warning alert-dismissable">
+					  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					  <strong>
+					  	{% if(form_errors(form.prixHt)) %}
+			              	Le prix ht est invalide.<br />
+			            {% endif %}
+					  	{% if(form_errors(form.prixTtc)) %}
+			              	Le prix ttc est invalide.<br />
+			            {% endif %}
+					  	{% if(form_errors(form.lien)) %}
+			              	Url invalide.<br />
+			            {% endif %}
+		
+					  </strong>
+					</div>
+					{% endif %}
+				
+			</div>
+		</div>
+	
+	<div class="row">
+	        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<form action="{{ path('Maj_produit',{'id':produit.id}) }}" method="post" {{ form_enctype(form) }} class="form">
+				<div class="form-group">
+				
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.libelle, "Entrez le libelle: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.libelle,{'attr':{'class':'col-lg-4'}}) }}</div>
+						<p class="help-block col-sm-10">Entrez le libelle du produit.</p>
+					</div>
+					
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.prixHt, "Entrez le prix ht: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.prixHt,{'attr':{'class':'col-lg-4'}}) }}</div>
+						<p class="help-block col-sm-10">Entrez le prix ht du produit.</p>
+					</div>
+					
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.prixTtc, "Entrez le prix ttc: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.prixTtc,{'attr':{'class':'col-lg-4'}}) }}</div>
+						<p class="help-block col-sm-10">Entrez le prix ttc du produit.</p>
+					</div>
+					
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.description, "Description: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.description,{'attr':{'class':'col-lg-4'}}) }}</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.metaKeywords, "MetaKeywords: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.metaKeywords,{'attr':{'class':'col-lg-4'}}) }}</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.metaDescription, "MetaDescription: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.metaDescription,{'attr':{'class':'col-lg-4'}}) }}</div>
+					</div>
+					
+					
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.reference, "Entrez la reference: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.reference,{'attr':{'class':'col-lg-4'}}) }}</div>
+						<p class="help-block col-sm-10">Entrez la reference du produit.</p>
+					</div>
+					
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.photoPrincipale, "Entrez la photo principale: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.photoPrincipale,{'attr':{'class':'col-lg-4'}}) }}</div>
+						
+						<p class="help-block col-sm-10">
+						<img width="100" height="100" src="{{ asset('upload/'~produit.id~"/small/"~produit.photoPrincipale) }}" alt="" class="img-thumbnail" />
+						
+						Entrez la photo principale du produit.<small>( Optionelle )</small></p>
+					</div>
+					
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.lien, "Entrez le lien: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.lien,{'attr':{'class':'col-lg-4'}}) }}</div>
+						<p class="help-block col-sm-10">Entrez le lien du produit.</p>
+					</div>
+					
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.disponible, "Entrez la disponibilite: ") }}</label>
+						<div class="col-sm-1">{{ form_widget(form.disponible,{'attr':{'class':'col-lg-4'}}) }} Oui</div>
+						<p class="help-block col-sm-10">Disponible?</p>
+					</div>
+					
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.categorie) }}</label>
+						<div class="col-sm-10">{{ form_widget(form.categorie,{'attr':{'class':'col-lg-4'}}) }}</div>
+						
+					</div>
+					{{ form_widget(form._token) }}
+					{{ form_rest(form) }}
+					<div class="form-group">
+					    <div class="col-sm-offset-2 col-sm-10">
+					      <input type="submit" class="btn btn-primary" />
+					    </div>
+					  </div>
+					
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}
+{% block stats %}{% endblock %}

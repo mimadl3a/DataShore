@@ -1,0 +1,109 @@
+{% extends 'ProjetAdminBundle:Layout:sb-admin.html.twig' %}
+{% block signin %}{% endblock %}
+{% block calendar %}{% endblock %}
+{% block body %}
+	{{ parent() }}
+	<div class="container-fluid col-sm-11 col-sm-offset-1">
+	      <div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h2>Liste des Categories</h2>
+				<a href="{{ path('Ajout_categorie') }}" class="btn btn-info">Ajouter nouvelle categorie</a>
+				
+				{% for flashMessage in app.session.flashbag.get('erreur') %}
+				    <div class="alert bg-warning">
+				      <button type="button" class="close" data-dismiss="alert">&times;</button>
+				      <strong>{{ flashMessage }}</strong>
+				    </div>
+				{% endfor %}
+				
+				{% for DbalflashMessage in app.session.flashbag.get('dbal-erreur') %}
+				    <div class="alert bg-warning">
+				      <button type="button" class="close" data-dismiss="alert">&times;</button>
+				      {{ DbalflashMessage|raw }}
+				    </div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<br/>
+				Filtrer par libelle du produit: <input type='text' id='search-cat'>
+				<br />
+				<br />
+				<div id="contenu-cat">
+					<table class="table table-bordered table-hover table-striped sortable" id="liste_cat">
+						<thead>
+							<tr>
+								<td><strong>#</strong></td>
+								<td><strong>Libelle</strong></td>
+							</tr>
+						</thead>
+						<tbody>
+							{% for categorie in categories %}
+								<tr>
+									<td>{{ categorie.id }}</td>
+									<td>
+										<div class="row">
+											<div class="col-md-8">
+												{{ categorie.libelle }}
+											</div>
+											<div class="col-md-2">
+												<a href="{{ path('Maj_categorie', {'id' : categorie.id}) }}">Modifier</a>
+											</div>
+											<div class="col-md-2">
+												<a href="{{ path('Spr_categorie', {'id' : categorie.id}) }}">Supprimer</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+                    <ul class="pagination">
+                            <li>
+                            {% if pagination.page>1 %}
+                                <a href="{{ path(pagination.route, pagination.route_params|merge({'page': 1})) }}">
+                                    <b>Premier</b>
+                                </a>
+                                <li>
+                                    <a href="{{ path(pagination.route,pagination.route_params|merge({'page': pagination.page-1})) }}">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            </li>
+
+                            {#display p numbers only from p-4 to p+4 but don't go <1 or >pages_count#}
+                            {% for p in range(max(pagination.page-4, 1), min(pagination.page+4, pagination.pages_count)) %}
+                                {% if p == pagination.page %}
+                                    <li class="active">
+                                        <a>{{ p }}</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="{{ path(pagination.route, pagination.route_params|merge({'page': p})) }}">{{ p }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            <li>
+                                {% if pagination.page<pagination.pages_count %}
+                                    <a href="{{ path(pagination.route,
+                                    pagination.route_params|merge({'page': pagination.page+1})) }}">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                    <li>
+                                        <a href="{{ path(pagination.route, pagination.route_params|merge({'page': pagination.pages_count})) }}">
+                                            <b>Dernier</b>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </li>
+                    </ul>
+				</div>
+
+				
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block stats %}{% endblock %}

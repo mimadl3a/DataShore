@@ -1,0 +1,29 @@
+
+<table class="table table-bordered table-hover table-striped sortable"	id="liste_cgv">
+	<thead>
+		<tr>
+			<td><strong>#</strong></td>
+			<td><strong>titre</strong></td>
+			<td><strong>contenu</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+		{% for cgv in liste %}
+		<tr>
+			<td>{{ cgv.id }}</td>
+			<td>{{ cgv.titre }}</td>
+			<td>
+				<div class="row">
+					<div class="col-md-8">{{ cgv.contenu|raw }}</div>
+					<div class="col-md-2">
+						<a href="{{ path('Maj_cgv', {'id' : cgv.id}) }}">Modifier</a>
+					</div>
+					<div class="col-md-2">
+						<a href="{{ path('Spr_cgv', {'id' : cgv.id}) }}">Supprimer</a>
+					</div>
+				</div>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>

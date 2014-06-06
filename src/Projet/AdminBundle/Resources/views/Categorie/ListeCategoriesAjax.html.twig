@@ -1,0 +1,34 @@
+
+		<table class="table table-bordered table-striped sortable" id="liste_cat">
+			<thead>
+				<tr>
+					<td><strong>#</strong></td>
+					<td><strong>Libelle</strong></td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for categorie in pagination %}
+					<tr>
+						<td>{{ categorie.id }}</td>
+						<td>
+							<div class="row">
+								<div class="col-md-8">
+									{{ categorie.libelle }}
+								</div>
+								<div class="col-md-2">
+									<a href="{{ path('Maj_categorie', {'id' : categorie.id}) }}">Modifier</a>
+								</div>
+								<div class="col-md-2">
+									<a href="{{ path('Spr_categorie', {'id' : categorie.id}) }}">Supprimer</a>
+								</div>
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div>
+		    {{ knp_pagination_render(pagination) }}
+		</div>
+		
+	

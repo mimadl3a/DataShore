@@ -1,0 +1,62 @@
+{% extends 'ProjetAdminBundle:Layout:sb-admin.html.twig' %}
+{% block signin %}{% endblock %}
+{% block calendar %}{% endblock %}
+{% block body %}
+	{{ parent() }}
+		<div class="container-fluid col-sm-11 col-sm-offset-1">
+	      <div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h2>Mettre a jour la categorie :<strong>{{ categorie.libelle }}</strong></h2>
+				{% for flashMessage in app.session.flashbag.get('erreur') %}
+				    <div class="alert bg-warning">
+				      <button type="button" class="close" data-dismiss="alert">&times;</button>
+				      <strong>{{ flashMessage }}</strong>
+				    </div>
+				{% endfor %}
+	
+				{% if not form.vars.valid %}
+					<div class="alert alert-warning alert-dismissable">
+					  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					  <strong>
+					  	{% if(form_errors(form.recaptcha)) %}
+			              	Erreur, le code captcha est vide ou invalide.<br />
+			            {% endif %}
+		
+					  </strong>
+					</div>
+				{% endif %}
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<form action="{{ path('Maj_categorie',{'id':categorie.id}) }}" method="post"{{ form_enctype(form) }} class="form">
+				<div class="form-group">
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.libelle, "Entrez le libelle: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.libelle,{'attr':{'class':'col-lg-4'}}) }}</div>
+						<p class="help-block col-sm-10">Mettez a jour le libelle de la categorie.</p>
+					</div>
+					<div class="control-group">
+						<label class="col-sm-2 control-label" for="inputText">{{ form_label(form.recaptcha, "Recaptcha: ") }}</label>
+						<div class="col-sm-10">{{ form_widget(form.recaptcha,{'attr':{'class':'col-lg-4'}}) }}
+							<p class="help-block col-sm-10">Entrez le recaptcha.</p>
+						</div>
+						
+					</div>
+					{{ form_errors(form) }}
+					{{ form_rest(form) }}
+					<div class="form-group">
+					    <div class="col-sm-offset-2 col-sm-10">
+					      <input type="submit" class="btn btn-primary" value="Mettre a jour" />
+					    </div>
+					  </div>
+					
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}
+{% block stats %}{% endblock %}

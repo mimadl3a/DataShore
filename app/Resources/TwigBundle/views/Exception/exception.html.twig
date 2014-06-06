@@ -1,0 +1,29 @@
+<html>
+<head>
+	<title>
+		Erreur
+	</title>
+</head>
+<body>
+    <br><br>
+
+    <div style="text-align: center">
+        
+
+        <br><br><br>
+
+        <p style="font-size: 20px;">
+        	<h1 style="font-size: 42px">The server returned a "{{ status_code }} {{ status_text }}".</h1>
+        	<br>
+        	
+        	{{ exception.message }}
+        	<br>
+            The resource you are looking for is unavailable or not found.
+            <br><br>
+            <p style="">
+                You can return to <a href="{{ path('Admin_home') }}">Home</a>
+            </p>
+        </p>
+    </div>
+   </body>
+</html>

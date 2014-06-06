@@ -1,0 +1,206 @@
+Admin_home:
+    pattern:  /admin/accueil
+    defaults: { _controller: ProjetAdminBundle:Accueil:index }
+
+Admin_home_fr:
+    pattern:  /admin/accueil/{_locale}
+    defaults: { _controller: ProjetAdminBundle:Accueil:indexen }
+    requirements:
+        _locale: fr|en|de
+    
+
+
+Liste_categorie:
+    pattern:  /admin/categorie/{page}
+    defaults: { _controller: ProjetAdminBundle:Categorie:ListTest, page:1 }
+
+
+ListeTest_categorie:
+    pattern:  /admin/lst
+    defaults: { _controller: ProjetAdminBundle:Categorie:index }
+    
+Liste_categorie_ajax:
+    pattern:  /admin/categorie/ajax
+    defaults: { _controller: ProjetAdminBundle:Categorie:index_ajax }
+    
+Ajout_categorie:
+    pattern:  /admin/categorie/ajout
+    defaults: { _controller: ProjetAdminBundle:Categorie:ajout }
+
+
+Spr_categorie:
+    pattern:  /admin/categorie/supprimer/{id}
+    defaults: { _controller: ProjetAdminBundle:Categorie:supprimer }
+    requirements:
+        id: \d+
+
+
+Maj_categorie:
+    pattern:  /admin/categorie/modifier/{id}
+    defaults: { _controller: ProjetAdminBundle:Categorie:modifier }
+    requirements:
+        id: \d+
+
+
+
+
+
+Liste_produit:
+    pattern:  /admin/produit
+    defaults: { _controller: ProjetAdminBundle:Produit:index }
+    
+Liste_produit_ajax:
+    pattern:  /admin/produit/ajax
+    defaults: { _controller: ProjetAdminBundle:Produit:index_ajax }
+    
+Ajout_produit:
+    pattern:  /admin/produit/ajout
+    defaults: { _controller: ProjetAdminBundle:Produit:ajout }
+    
+
+Spr_produit:
+    pattern:  /admin/produit/supprimer/{id}
+    defaults: { _controller: ProjetAdminBundle:Produit:supprimer }
+    requirements:
+        id: \d+
+
+
+Maj_produit:
+    pattern:  /admin/produit/modifier/{id}
+    defaults: { _controller: ProjetAdminBundle:Produit:modifier }
+    requirements:
+        id: \d+
+
+
+
+
+
+
+
+Gal_produit:
+    pattern:  /admin/produit/galerie/{id}
+    defaults: { _controller: ProjetAdminBundle:Produit:listePhoto }
+    requirements:
+        id: \d+
+
+
+
+Ajout_gal_produit:
+    pattern:  /admin/produit/galerie/{id}/ajouter
+    defaults: { _controller: ProjetAdminBundle:Produit:ajouterPhoto }
+    requirements:
+        id: \d+
+
+
+
+Spr_gal_produit:
+    pattern:  /admin/produit/galerie/{id}/supprimer/{id_sp}
+    defaults: { _controller: ProjetAdminBundle:Produit:supprimerPhoto }
+    requirements:
+        id: \d+
+        id_sp: \d+
+
+
+
+Maj_gal_produit:
+    pattern:  /admin/produit/galerie/{id}/modifier/{id_ph}
+    defaults: { _controller: ProjetAdminBundle:Produit:modifierPhoto }
+    requirements:
+        id: \d+
+        id_sp: \d+
+
+
+
+
+
+
+
+Info_supp_produit:
+    pattern:  /admin/produit/info-supp/{id}
+    defaults: { _controller: ProjetAdminBundle:InfoSuppProduit:index }
+    requirements:
+        id: \d+
+
+
+
+Ajouter_info_supp_produit:
+    pattern:  /admin/produit/info-supp/{id_prod}/ajouter
+    defaults: { _controller: ProjetAdminBundle:InfoSuppProduit:ajouter }
+    requirements:
+        id_prod: \d+
+
+
+Spr_infosupp:
+    pattern:  /admin/produit/info-supp/{id_prod}/supprimer/{id}
+    defaults: { _controller: ProjetAdminBundle:InfoSuppProduit:supprimer }
+    requirements:
+        id: \d+
+        id_prod: \d+
+
+
+Maj_infosupp:
+    pattern:  /admin/produit/info-supp/{id_prod}/modifier/{id}
+    defaults: { _controller: ProjetAdminBundle:InfoSuppProduit:modifier }
+    requirements:
+        id: \d+
+        id_prod: \d+
+
+
+Maj_texte:
+    pattern: /admin/texte/modifier/{texte}
+    defaults: { _controller: ProjetAdminBundle:Texte:modifier}
+
+
+
+Liste_cgv:
+    pattern: /admin/cgv
+    defaults: { _controller: ProjetAdminBundle:Cgv:index}
+
+
+Ajouter_cgv:
+    pattern: /admin/cgv/ajouter
+    defaults: { _controller: ProjetAdminBundle:Cgv:ajouter}
+
+
+
+Spr_cgv:
+    pattern:  /admin/cgv/supprimer/{id}
+    defaults: { _controller: ProjetAdminBundle:Cgv:supprimer }
+    requirements:
+        id: \d+
+
+
+Maj_cgv:
+    pattern:  /admin/cgv/modifier/{id}
+    defaults: { _controller: ProjetAdminBundle:Cgv:modifier }
+    requirements:
+        id: \d+
+
+Liste_cgv_ajax:
+    pattern:  /admin/cgv/ajax
+    defaults: { _controller: ProjetAdminBundle:Cgv:ajax }
+    
+
+
+
+stats:
+    pattern:  /admin/stats
+    defaults: { _controller: ProjetAdminBundle:Stats:index }
+ 
+
+calendar:
+    pattern:  /admin/calendar
+    defaults: { _controller: ProjetAdminBundle:Calendar:index }
+ 
+ 
+calendar_ajouter:
+    pattern:  /admin/calendar/add/ajax
+    defaults: { _controller: ProjetAdminBundle:Calendar:ajouter }
+ 
+ 
+calendar_supprimer:
+    pattern:  /admin/calendar/spr/ajax
+    defaults: { _controller: ProjetAdminBundle:Calendar:supprimer }
+ 
+ 
+    

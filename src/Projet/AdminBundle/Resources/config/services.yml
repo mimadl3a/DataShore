@@ -1,0 +1,7 @@
+parameters:
+#    projet_admin.example.class: Projet\AdminBundle\Example
+
+services:
+#    projet_admin.example:
+#        class: %projet_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

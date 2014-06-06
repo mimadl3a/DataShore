@@ -1,0 +1,70 @@
+{% extends 'ProjetAdminBundle:Layout:sb-admin.html.twig' %}
+{% block signin %}{% endblock %}
+{% block calendar %}{% endblock %}
+{% block body %}
+	
+	{{ parent() }}
+	
+	<div class="container-fluid col-sm-11 col-sm-offset-1">
+	      <div class="row">
+	        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h3>Modification/Ajout des informations supplementaires du produit : <small>{{ produit.libelle }}</small></h3>
+				<a href="{{ path('Ajouter_info_supp_produit',{'id_prod':produit.id}) }}" class="btn btn-info">Ajouter nouvelle informations</a>
+				<a href="{{ path('Liste_produit') }}" class="btn btn-warning">Retour</a>
+				{% for flashMessage in app.session.flashbag.get('erreur') %}
+				    <div class="alert bg-warning">
+				      <button type="button" class="close" data-dismiss="alert">&times;</button>
+				      <strong>{{ flashMessage }}</strong>
+				    </div>
+				{% endfor %}
+			
+			</div>
+		</div>
+	
+	
+	
+	
+	<div class="row">
+	        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<br>
+					<table class="table table-bordered table-striped sortable" id="liste_cat">
+						<thead>
+							<tr>
+								<td><strong>#</strong></td>
+								<td><strong>couleur</strong></td>
+								<td><strong>taille</strong></td>
+								<td><strong>quantite</strong></td>
+							</tr>
+						</thead>
+						<tbody>
+							{% for info in liste %}
+								<tr>
+									<td>{{ info.id }}</td>
+									<td>{{ info.couleur }}</td>
+									<td>{{ info.taille }}</td>
+									<td>{{ info.quantite }}</td>
+									<td>
+										<div class="row">
+											
+											<div class="col-md-6">
+												
+											</div>
+											<div class="col-md-2">
+												<a href="{{ path('Maj_infosupp', {'id' : info.id,'id_prod':info.produit.id}) }}">Modifier</a>
+											</div>
+											<div class="col-md-2">
+												<a href="{{ path('Spr_infosupp', {'id' : info.id,'id_prod':info.produit.id}) }}">Supprimer</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	
+	
+{% endblock %}
+{% block stats %}{% endblock %}

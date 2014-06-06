@@ -1,0 +1,59 @@
+{% extends 'ProjetAdminBundle:Layout:sb-admin.html.twig' %}
+{% block signin %}{% endblock %}
+{% block calendar %}{% endblock %}
+{% block body %}
+	{{ parent() }}
+	<div class="container-fluid col-sm-11 col-sm-offset-1">
+	      <div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h2>Liste des photos du Produit,<small> Nombre egal a: {{ liste|length }}</small></h2>
+				<a href="{{ path('Ajout_gal_produit',{'id':produit.id}) }}" class="btn btn-info">Ajouter nouvelle photo</a>
+				<br><br>
+				{% for flashMessage in app.session.flashbag.get('erreur') %}
+				    <div class="alert bg-warning">
+				      <button type="button" class="close" data-dismiss="alert">&times;</button>
+				      <strong>{{ flashMessage }}</strong>
+				    </div>
+				{% endfor %}
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			
+			<div class="panel panel-default">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading">Liste des photos</div>
+			  <div class="panel-body">
+			    <p>Veuillez voir le tableau ci-dessous, et utiliser les controles a cote de chaque photo.</p>
+			    
+			    
+				{% for photo in liste %}
+	            <div class="col-lg-3 col-md-4 portfolio-item">
+	                <a href="#project-one">
+	                    <img src="{{ asset('upload/'~produit.id~"/small/"~photo.image) }}" alt="" class="img-thumbnail" />
+	                </a>
+	                <h4>
+	                	#{{ photo.id }} | {{ photo.libelle }}
+	                </h4>
+	                <p>
+	                	<a href="{{ path('Maj_gal_produit', {'id_ph' : photo.id,'id':produit.id}) }}">Modifier</a> | 
+	                	<a onclick="spr('{{ path('Spr_gal_produit', {'id_sp' : photo.id,'id':produit.id}) }}')">Supprimer</a>
+	                </p>
+	                
+	            </div>
+	            {% endfor %}
+			    
+			    
+			  </div>
+			
+			
+	        
+			</div>
+			
+			
+		</div>
+	</div>
+	</div>
+{% endblock %}
+{% block stats %}{% endblock %}

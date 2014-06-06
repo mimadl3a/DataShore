@@ -1,0 +1,64 @@
+
+			<script type="text/javascript">
+			
+			function stats() {
+
+			    window.a = Morris.Area({
+					  // ID of the element in which to draw the chart.
+					  element: 'morris-chart-area',
+					  // Chart data records -- each entry in this array corresponds to a point on
+					  // the chart.
+					  data: {{ data|raw }},
+					  // The name of the data record attribute that contains x-visitss.
+					  xkey: 'd',
+					  // A list of names of data record attributes that contain y-visitss.
+					  ykeys: ['visits'],
+					  // Labels for the ykeys -- will be displayed when you hover over the
+					  // chart.
+					  labels: ['Visits'],
+					  // Disables line smoothing
+					  smooth: false,
+					  stacked: true,
+				      hideHover: 'auto',
+				      resize: true,
+				      redraw: true
+				});
+				
+			    window.b = Morris.Line({
+					  // ID of the element in which to draw the chart.
+					  element: 'morris-chart-line',
+					  // Chart data records -- each entry in this array corresponds to a point on
+					  // the chart.
+					  data: {{ data|raw }},
+					  // The name of the data record attribute that contains x-visitss.
+					  xkey: 'd',
+					  // A list of names of data record attributes that contain y-visitss.
+					  ykeys: ['visits'],
+					  // Labels for the ykeys -- will be displayed when you hover over the
+					  // chart.
+					  labels: ['Visits'],
+					  // Disables line smoothing
+					  smooth: false,
+					  stacked: true,
+				      hideHover: 'auto',
+				      resize: true,
+				      redraw: true
+				});
+			}
+			
+			$(document).ready(function() {
+				stats();
+
+
+				var StatsResize1;
+				var StatsResize2;
+			    $(window).resize(function(event){
+			    	event.preventDefault();
+			    	clearTimeout(StatsResize1);
+			    	StatsResize1 = setTimeout(window.a.redraw(), 1000);
+			    	
+			    	clearTimeout(StatsResize2);
+			    	StatsResize2 = setTimeout(window.b.redraw(), 1000);
+			    });
+			});
+			</script>

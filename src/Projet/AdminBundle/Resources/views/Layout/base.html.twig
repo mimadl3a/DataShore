@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Administration{% endblock %}</title>
+        {% block stylesheets %}
+        	<meta name="viewport" content="width=device-width, initial-scale=1">
+        	<link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+        {% endblock %}
+        
+        {% block files %}
+        
+        
+        	<script src="{{ asset('js/jquery.min.js') }}"></script>
+        	<script type="text/javascript" src="{{ asset('js/jquery.tablesorter.min.js') }}"></script>
+        	<script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
+        	
+        	
+        	<link rel="stylesheet" href="{{ asset('css/jquery-ui.css')}}">
+        	<script src="{{ asset('js/jquery-ui.js')}}"></script>
+        	
+        	<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap3-wysihtml5.min.css')}}"></link>
+        	
+        	
+			<script src="{{ asset('js/wysihtml5-0.3.0.min.js')}}"></script>
+			<script src="{{ asset('js/handlebars.runtime.min.js')}}"></script>
+			<script src="{{ asset('js/bootstrap3-wysihtml5.min.js')}}"></script>
+			
+			<link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+			
+        {% endblock %}
+        
+        
+        {% block signin %}
+			<link rel="stylesheet" type="text/css" href="{{ asset('css/signin.css')}}"></link>
+        {% endblock %}
+                
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block body %}
+        
+        	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        		<div class="container-fluid">
+        			<div class="navbar-header">
+        				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				            <span class="sr-only">Toggle navigation</span>
+				            <span class="icon-bar"></span>
+				            <span class="icon-bar"></span>
+				            <span class="icon-bar"></span>
+				          </button>        				
+        				<a class="navbar-brand" href="{{ path("Admin_home") }}">Accueil</a>
+        			</div>
+        			<div class="navbar-inner navbar-collapse collapse">        				
+        				<ul class="nav navbar-nav navbar-right">
+					        <li class="dropdown">
+					          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connect&eacute; en tant que : {{ app.security.getToken().getUser().getUsername() }}<b class="caret"></b></a>
+					          <ul class="dropdown-menu">
+					            <li><a href="{{ path('logout') }}">Se deconnecter</a></li>
+					            <li><a href="#">Modifier authentification</a></li>
+					            <li><a href="#">Something else here</a></li>
+					            <li class="divider"></li>
+					            <li><a href="#">Separated link</a></li>
+					          </ul>
+					        </li>
+					    </ul>
+        			</div>
+        		</div>
+        		
+        		 <div class="container-fluid">
+			      <div class="row">
+			        <div class="col-sm-3 col-md-2 sidebar">
+			          <ul class="nav nav-sidebar">
+			            <li><a href="{{ path('Liste_produit') }}">Produits</a></li>
+			            <li><a href="{{ path('Liste_categorie') }}">Categories</a></li>
+			            <li><a href="{{ path('Maj_texte',{'texte':'bienvenue'}) }}">Texte acceuil</a></li>
+			            <li><a href="{{ path('Liste_cgv') }}">Conditions generales de vente</a></li>
+			          </ul>
+			          
+			        </div>
+			        
+			      </div>
+			    </div>
+        		
+        		
+        		
+        	</div>        
+        {% endblock %}
+        
+        {% block javascripts %}
+        	
+        	<script>
+				$(document).ready(function(){
+					$(function(){
+						$("#liste_cat").tablesorter();
+						$("#liste_cgv").tablesorter();
+						$("#liste_prd").tablesorter();
+					});
+				});
+				
+				$( "#search" ).keyup(function() {
+					$.ajax({
+						type: "POST",
+						url: "{{ path('Liste_produit_ajax') }}",
+						data: { variable: $( "#search" ).val() },
+						success: function(data){
+							$( "#contenu" ).html( data );
+							$("#liste_prd").tablesorter();
+							$( "#search" ).blur();
+						},
+						dataType: "html"
+					});
+				});
+				$( "#search-cat" ).keyup(function() {
+					$.ajax({
+						type: "POST",
+						url: "{{ path('Liste_categorie_ajax') }}",
+						data: { variable: $( "#search-cat" ).val() },
+						success: function(data){
+							$( "#contenu-cat" ).html( data );
+							$("#liste_cat").tablesorter();
+							$( "#search-cat" ).blur();
+						},
+						dataType: "html"
+					});
+				});
+
+				$( "#search-cgv" ).keyup(function() {
+					$.ajax({
+						type: "POST",
+						url: "{{ path('Liste_cgv_ajax') }}",
+						data: { variable: $( "#search-cgv" ).val() },
+						success: function(data){
+							$( "#contenu-cgv" ).html( data );
+							$("#liste_cgv").tablesorter();
+							$( "#search-cgv" ).blur();
+						},
+						dataType: "html"
+					});
+				});
+				
+				$(".alert").delay(3000).toggle( "blind" );
+
+				 function spr(route) {
+					 $( "#dialog-confirm" ).dialog({
+						 resizable: false,
+						 height:140,
+						 modal: true,
+						 buttons: {
+						 "Confirmer": function() {
+							 $( this ).dialog( "close" );
+							 	document.location.href=route;
+							 },
+						 	"Annuler": function() {
+						 		$( this ).dialog( "close" );
+						 	}
+						 }
+					});
+				};
+			</script>
+			
+			<script>
+			  $('#projet_adminbundle_texte_contenu').wysihtml5();
+			</script>
+			
+        	<div id="dialog-confirm" title="Supression" style="display: none;font-size:12px">
+				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Etes-vous sure?</p>
+			</div>
+        {% endblock %}
+    </body>
+</html>
