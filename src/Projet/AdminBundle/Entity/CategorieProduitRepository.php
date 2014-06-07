@@ -30,7 +30,7 @@ class CategorieProduitRepository extends EntityRepository
             ->getSingleScalarResult();
 
     }
-    public function getList($page=1, $maxperpage=5)
+    public function getList($page=1, $maxperpage)
     {
         $q = $this->_em->createQueryBuilder()
             ->select('CategorieProduit')
@@ -41,13 +41,9 @@ class CategorieProduitRepository extends EntityRepository
 
         return new Paginator($q);
     }
+        
     
-    
-    
-    
-    
-    
-    public function getListAjax($page,$maxperpage=5,$libelle)
+    public function getListAjax($page,$maxperpage,$libelle)
     {
         $q = $this->_em->createQueryBuilder()
             ->select('CategorieProduit')

@@ -11,22 +11,23 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CategorieController extends Controller
 {
-
+	static $maxArticles = "100";
+	
     public function ListTestAction($page)
     {
-        $maxArticles = "5";
+        
         $articles_count = $this->getDoctrine()
             ->getRepository('ProjetAdminBundle:CategorieProduit')
             ->getNb();
         $pagination = array(
             'page' => $page,
             'route' => 'Liste_categorie',
-            'pages_count' => ceil($articles_count / $maxArticles),
+            'pages_count' => ceil($articles_count / self::$maxArticles),
             'route_params' => array()
         );
 
         $categories = $this->getDoctrine()->getRepository('ProjetAdminBundle:CategorieProduit')
-            ->getList($page, $maxArticles);
+            ->getList($page, self::$maxArticles);
 
         return $this->render('ProjetAdminBundle:Categorie:ListeTestCategories.html.twig', array(
             'categories' => $categories,
@@ -46,20 +47,19 @@ class CategorieController extends Controller
     public function ListTestAjaxAction(Request $req)
     {
     	
-        $maxArticles = "5";
         $articles_count = $this->getDoctrine()
             ->getRepository('ProjetAdminBundle:CategorieProduit')
             ->getNbLimit($req->get("variable"));
         $pagination = array(
             'page' => $req->get("page"),
             'route' => 'Liste_categorie_ajax',
-            'pages_count' => ceil($articles_count / $maxArticles),
+            'pages_count' => ceil($articles_count / self::$maxArticles),
             'route_params' => array('libelle'=>$req->get("variable"))
         );
 
         
 		$categories = $this->getDoctrine()->getRepository('ProjetAdminBundle:CategorieProduit')
-        	->getListAjax($req->get("page"), $maxArticles,$req->get("variable"));
+        	->getListAjax($req->get("page"), self::$maxArticles,$req->get("variable"));
         return $this->render('ProjetAdminBundle:Categorie:ListeTestAjaxCategories.html.twig',array(
             'categories' => $categories,
             'pagination' => $pagination
