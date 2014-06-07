@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CategorieController extends Controller
 {
-	static $maxArticles = "100";
+	static $maxArticles = "8";
 	
     public function ListTestAction($page)
     {
