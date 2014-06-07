@@ -53,9 +53,27 @@
 
 {% else %}
 <div class="alert bg-danger">
-	<button type="button" class="close" data-dismiss="alert">
+	<button type="button" class="close" data-dismiss="alert" id="close-null-cat">
 		<span class="glyphicon glyphicon-remove-circle"></span>
 	</button>
 	<strong>Pas de donn&eacute;es !</strong>
 </div>
+<script>
+	$("#close-null-cat").click(function(){
+		$("#progBar").show();
+		$( "#search-cat" ).val("");
+		$.ajax({
+			type: "POST",
+			url: "{{ path('Liste_categorie_ajax') }}",
+			data: { variable: "", page:'1' },
+			success: function(data){
+				$("#progBar").hide();
+				$( "#contenu-cat" ).html( data );
+				$("#liste_cat").tablesorter();
+				$( "#search-cat" ).blur();
+			},
+			dataType: "html"
+		});
+	});
+</script>
 {% endif %}
