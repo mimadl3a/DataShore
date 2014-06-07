@@ -7,13 +7,14 @@ use Projet\AdminBundle\Entity\CategorieProduit;
 use Projet\AdminBundle\Form\CategorieProduitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategorieController extends Controller
 {
 
     public function ListTestAction($page)
     {
-        $maxArticles = "10";
+        $maxArticles = "5";
         $articles_count = $this->getDoctrine()
             ->getRepository('ProjetAdminBundle:CategorieProduit')
             ->getNb();
@@ -32,29 +33,52 @@ class CategorieController extends Controller
             'pagination' => $pagination
         ));
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public function ListTestAjaxAction(Request $req)
     {
-        $maxArticles = "10";
+    	
+        $maxArticles = "5";
         $articles_count = $this->getDoctrine()
             ->getRepository('ProjetAdminBundle:CategorieProduit')
-            ->getNb();
+            ->getNbLimit($req->get("variable"));
         $pagination = array(
-            'page' => 1,
-            'route' => 'Liste_categorie',
+            'page' => $req->get("page"),
+            'route' => 'Liste_categorie_ajax',
             'pages_count' => ceil($articles_count / $maxArticles),
-            'route_params' => array()
+            'route_params' => array('libelle'=>$req->get("variable"))
         );
 
-        $categories = $this->getDoctrine()->getRepository('ProjetAdminBundle:CategorieProduit')
-            ->getListAjax($maxArticles,$req->get("variable"));
-
+        
+		$categories = $this->getDoctrine()->getRepository('ProjetAdminBundle:CategorieProduit')
+        	->getListAjax($req->get("page"), $maxArticles,$req->get("variable"));
         return $this->render('ProjetAdminBundle:Categorie:ListeTestAjaxCategories.html.twig',array(
             'categories' => $categories,
             'pagination' => $pagination
         ));
+        
     }
 
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 	public function listAction()
 	{

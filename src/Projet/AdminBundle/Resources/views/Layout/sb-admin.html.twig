@@ -206,11 +206,13 @@
 					});
 				});
 				$( "#search-cat" ).keyup(function() {
+					$("#progBar").show();
 					$.ajax({
 						type: "POST",
 						url: "{{ path('Liste_categorie_ajax') }}",
-						data: { variable: $( "#search-cat" ).val() },
+						data: { variable: $( "#search-cat" ).val(), page:'1' },
 						success: function(data){
+							$("#progBar").hide();
 							$( "#contenu-cat" ).html( data );
 							$("#liste_cat").tablesorter();
 							$( "#search-cat" ).blur();
@@ -218,6 +220,23 @@
 						dataType: "html"
 					});
 				});
+
+
+				function liste_cat(page){
+					$("#progBar").show();
+					$.ajax({
+						type: "POST",
+						url: "{{ path('Liste_categorie_ajax') }}",
+						data: { variable: $( "#search-cat" ).val(), page:page },
+						success: function(data){
+							$("#progBar").hide();
+							$( "#contenu-cat" ).html( data );
+							$("#liste_cat").tablesorter();
+							$( "#search-cat" ).blur();
+						},
+						dataType: "html"
+					});
+				}
 
 				$( "#search-cgv" ).keyup(function() {
 					$.ajax({
@@ -232,6 +251,8 @@
 						dataType: "html"
 					});
 				});
+
+				
 				
 				$(".alert").delay(3000).toggle( "blind" );
 

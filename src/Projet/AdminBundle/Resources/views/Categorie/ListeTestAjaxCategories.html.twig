@@ -30,11 +30,11 @@
                     <ul class="pagination">
                             <li>
                             {% if pagination.page>1 %}
-                                <a href="{{ path(pagination.route, pagination.route_params|merge({'page': 1})) }}">
+                                <a href="javascript:liste_cat('1')">
                                     <b>Premier</b>
                                 </a>
                                 <li>
-                                    <a href="{{ path(pagination.route,pagination.route_params|merge({'page': pagination.page-1})) }}">
+                                    <a href="javascript:liste_cat('{{ pagination.page-1 }}')">
                                         <span class="glyphicon glyphicon-chevron-left"></span>
                                     </a>
                                 </li>
@@ -49,18 +49,17 @@
                                     </li>
                                 {% else %}
                                     <li>
-                                        <a href="{{ path(pagination.route, pagination.route_params|merge({'page': p})) }}">{{ p }}</a>
+                                        <a href="javascript:liste_cat('{{ p }}')">{{ p }}</a>
                                     </li>
                                 {% endif %}
                             {% endfor %}
                             <li>
                                 {% if pagination.page<pagination.pages_count %}
-                                    <a href="{{ path(pagination.route,
-                                    pagination.route_params|merge({'page': pagination.page+1})) }}">
+                                    <a href="javascript:liste_cat('{{ pagination.page+1 }}')">
                                         <span class="glyphicon glyphicon-chevron-right"></span>
                                     </a>
                                     <li>
-                                        <a href="{{ path(pagination.route, pagination.route_params|merge({'page': pagination.pages_count})) }}">
+                                        <a href="javascript:liste_cat('{{ pagination.pages_count }}')">
                                             <b>Dernier</b>
                                         </a>
                                     </li>

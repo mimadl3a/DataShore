@@ -24,7 +24,7 @@ ListeTest_categorie:
 Liste_categorie_ajax:
     pattern:  /admin/categorie/ajax
     defaults: { _controller: ProjetAdminBundle:Categorie:ListTestAjax }
-
+    
 Ajout_categorie:
     pattern:  /admin/categorie/ajout
     defaults: { _controller: ProjetAdminBundle:Categorie:ajout }
